@@ -1,0 +1,5 @@
+claim_id,manufacturer,product_or_family,claimed_parameter,claimed_min,claimed_max,unit,qualifier,source_id,reviewed_utc,evidence_class,verification_status
+PS_LH_HEAD,PowerSpout,LH,static_head,1,5,m,advertised operating range,POWERSPOUT_LH,2026-11-05,manufacturer_claim,unverified_for_site
+PS_LH_FLOW,PowerSpout,LH,flow_per_unit,25,55,L/s,advertised product-page range; other manufacturer general information differs,POWERSPOUT_LH,2026-11-05,manufacturer_claim,conflicting_manufacturer_pages
+PS_LH_POWER,PowerSpout,LH,peak_output,,1.6,kW,up to; not annual average,POWERSPOUT_LH,2026-11-05,manufacturer_claim,unverified_for_site
+TURB_CAP,Turbulent,vortex_family,nominal_unit_capacity,15,90,kW,marketed family range not guaranteed yield,TURBULENT_PRODUCTS,2026-11-05,manufacturer_claim,unverified_for_site
