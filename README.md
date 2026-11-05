@@ -126,10 +126,14 @@ The frontend package also defines `npm run typecheck` and `npm run build`. Consu
 | [docs](docs/) | Engineering and project documentation |
 | [tests](tests/) and [scripts](scripts/) | Tests and development utilities |
 
+## Hydro evidence package (research preview)
+
+The [site registry](data/hydro/sites.csv), [source register](data/hydro/source_register.csv), [manufacturer-claim register](data/hydro/manufacturer_claims.csv), [illustrative hourly inputs](data/hydro/illustrative_intervals.csv), [reproducible generation model](scripts/hydro_generation.py), [tests](tests/test_hydro_generation.py), and [screening protocol](docs/hydro-screening.md) provide a first-pass comparison framework. **All supplied hourly records are invented test scenarios, not site measurements or predictions.** Their uncertainty ranges are deterministic sensitivity bounds, not statistical confidence intervals. No observed energy yield or LCOE has been established.
+
 ## Next milestones
 
-1. Build a source-indexed site-screening dataset with measured head, flow, uncertainty, and access constraints.
-2. Implement a reproducible time-series hydro energy model and compare it with manufacturer curves.
+1. Replace illustrative records with provenance-checked, synchronized measured head and legally allocable flow for each selected site.
+2. Obtain manufacturer efficiency curves and independently check actual turbine operating envelopes.
 3. Evaluate lifecycle costs and sensitivity to drought, flood tailwater, downtime, and financing.
 4. Complete site-specific environmental, navigation, ownership, and interconnection assessments.
 5. Develop distribution and DER scenarios with explicit validation before any operational use.
