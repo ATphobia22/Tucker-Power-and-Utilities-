@@ -5,7 +5,7 @@ import hashlib
 import math
 from collections.abc import Mapping
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import MappingProxyType
 from typing import Any
 
@@ -38,7 +38,7 @@ class EvidenceNode:
     validation_status: str
     payload: dict[str, Any]
     parent_ids: tuple[str, ...] = ()
-    timestamp_utc: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"))
+    timestamp_utc: str = field(default_factory=lambda: datetime.now(UTC).isoformat().replace("+00:00", "Z"))
 
     def __post_init__(self) -> None:
         if not self.node_id or not self.provenance_id or not self.authority:
