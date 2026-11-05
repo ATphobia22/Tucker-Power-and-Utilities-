@@ -1,0 +1,43 @@
+name: Hydro screening checks
+
+on:
+  push:
+    paths:
+      - "scripts/hydro_generation.py"
+      - "tests/test_hydro_generation.py"
+      - "data/hydro/**"
+      - ".github/workflows/hydro-screening.yml"
+  pull_request:
+    paths:
+      - "scripts/hydro_generation.py"
+      - "tests/test_hydro_generation.py"
+      - "data/hydro/**"
+      - ".github/workflows/hydro-screening.yml"
+
+jobs:
+  hydro-screening:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Unit tests
+        run: python -m unittest discover -s tests -p 'test_hydro_generation.py' -v
+      - name: Generate deterministic example
+        run: python scripts/hydro_generation.py --input data/hydro/illustrative_intervals.csv --output-dir /tmp/tucker-hydro
+      - name: Check output schema and classification
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path("/tmp/tucker-hydro/summary.json").read_text())
+          assert len(data["site_summaries"]) == 3
+          for s in data["site_summaries"]:
+              assert s["window_hours"] == 4
+              assert s["record_classes"] == ["illustrative_assumption"]
+              assert 0 <= s["low_energy_kwh"] <= s["energy_kwh"] <= s["high_energy_kwh"]
+              assert 0 <= s["window_capacity_factor"] <= 1
+          PY
