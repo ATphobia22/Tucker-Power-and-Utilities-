@@ -70,7 +70,7 @@
     "@types/d3": "^7.4.3",
     "@types/jest": "^30.0.0",
     "@webgpu/types": "^0.1.71",
-    "electron": "^39.8.10",
+    "electron": "^42.11.16",
     "electron-builder": "^26.0.0",
     "glob": "^13.0.6",
     "jest": "^30.4.2",
