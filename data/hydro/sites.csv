@@ -1,0 +1,4 @@
+site_id,site_name,scale,location_reference,river_mile,facility_type,record_class,nominal_head_reference_m,head_reference_type,vertical_datum,source_id,site_flow_verified,permitting_verified,reviewed_utc,uncertainty_note
+micro_demo,Micro-hydro demonstration (location TBD),micro,UNSELECTED,,undetermined,concept,,,,,false,false,2026-11-05,No location or measured flow/head
+community_concept,Community-scale low-head concept (location TBD),community,UNSELECTED,,undetermined,concept,,,,,false,false,2026-11-05,No location or measured flow/head
+myers_retrofit,John T. Myers Locks and Dam,retrofit,"Ohio River near Mount Vernon Indiana",846.0,USACE navigation dam,verified_location_only,5.4864,nominal_upper_minus_lower_pool_not_operating_head,datum_not_confirmed,USACE_MYERS_2024,false,false,2026-11-05,Nominal pool difference is not a measured concurrent net head; 700 MW unverified
