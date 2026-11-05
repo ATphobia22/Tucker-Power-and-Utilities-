@@ -1,0 +1,43 @@
+{
+  "name": "ptdt-v33-desktop",
+  "version": "33.0.0",
+  "description": "Point Township Digital Twin v33 — Standalone Windows Engineering System",
+  "main": "electron/main.js",
+  "scripts": {
+    "build:backend": "python backend_build.py",
+    "build:frontend": "cd frontend && npm run build",
+    "electron:dist": "npm run build:backend && npm run build:frontend && electron-builder --win nsis",
+    "electron:dev": "electron ."
+  },
+  "build": {
+    "appId": "com.tristate.ptdt33",
+    "productName": "PTDT v33 Engineering Desktop",
+    "directories": {
+      "output": "release/"
+    },
+    "extraResources": [
+      {
+        "from": "dist/ptdt-backend",
+        "to": "ptdt-backend",
+        "filter": ["**/*"]
+      }
+    ],
+    "files": [
+      "electron/**/*",
+      "frontend/dist/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    }
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.0"
+  }
+}

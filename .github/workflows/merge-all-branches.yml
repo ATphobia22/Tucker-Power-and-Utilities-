@@ -1,0 +1,48 @@
+name: Consolidated Multi-Branch Auto-Merge
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_branch:
+        description: "Target branch to consolidate into"
+        required: true
+        default: "main"
+
+permissions:
+  contents: write
+
+jobs:
+  merge-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "ATphobia22-Automation"
+          git config user.email "54104732+ATphobia22@users.noreply.github.com"
+
+      - name: Merge remote feature branches
+        run: |
+          TARGET="${{ github.event.inputs.target_branch || 'main' }}"
+          git checkout "$TARGET"
+          git fetch --all
+          BRANCHES=$(git branch -r | grep -v '\->' | grep -vE "origin/($TARGET|HEAD)" | sed 's|origin/||' | tr -d ' ')
+          for branch in $BRANCHES; do
+            echo "Attempting merge of origin/$branch into $TARGET..."
+            if git merge "origin/$branch" -m "auto(merge): synchronize $branch into $TARGET" --no-ff; then
+              echo "Merged $branch"
+            else
+              echo "Conflict on $branch — aborting merge"
+              git merge --abort || true
+            fi
+          done
+
+      - name: Push consolidated branch
+        run: |
+          TARGET="${{ github.event.inputs.target_branch || 'main' }}"
+          git push origin "$TARGET"

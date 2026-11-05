@@ -49,6 +49,18 @@ except Exception as exc:
     logger.warning("sovereign_router unavailable: %s", exc)
     sovereign_router = None
 
+try:
+    from backend.streaming.ws_hydrology import router as ws_hydro_router
+    app.include_router(ws_hydro_router)
+except Exception as exc:
+    logger.warning("ws_hydrology unavailable: %s", exc)
+
+try:
+    from backend.routers.grants import router as grants_router
+    app.include_router(grants_router)
+except Exception as exc:
+    logger.warning("grants router unavailable: %s", exc)
+
 _engine = None
 _gov = None
 _bridge = None
